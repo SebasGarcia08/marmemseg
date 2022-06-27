@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "marmemseg"
+version = "0.1.0"
+description = "A machine learning library for semantic segmentation of maritime multimodal videos"
+authors = ["Sebastián García Acosta <segaracos@outlook.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+openmim = "^0.1.6"
+mmcv-full = {url = "https://download.openmmlab.com/mmcv/dist/cu115/torch1.11.0/mmcv_full-1.5.2-cp38-cp38-manylinux1_x86_64.whl"}
+mmsegmentation = {git = "https://github.com/open-mmlab/mmsegmentation.git"}
+torch = "^1.11.0"
+torchvision = "^0.12.0"
+ipykernel = "^6.15.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+packages = [
+    { include = "src/*" },
+]

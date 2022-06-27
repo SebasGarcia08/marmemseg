@@ -1,0 +1,102 @@
+MarSemSeg: A machine learning library for semantic segmentation of maritime multimodal videos
+
+1. The objective is to develop a flexible Python library with multiple algorithms for semantic segmentation (SS) of multimodal videos obtained from a moving maritime vessel using machine learning algorithms based on published papers, open-source libraries and/or new development. 
+
+2. MarSemSeg should support different ML algorithms/models/architectures (at least three to start off) using our standard Python interface classes for SS. Each model should be an instance of the instance class.
+
+3. The one or more multimodal videos (in this case, visible-spectrum video, near-infrared, thermal/infrared) are obtained under different lighting, weather and wave conditions. Even with multiple sensors, the final output must still be a single semantic segmentation picture.
+
+4. In this project, we are interested identifying the water area, sea state (calm to phenomenal https://en.wikipedia.org/wiki/Sea_state), land, sky, sea-land-sky boundary, human made structures, buyos, lane markers, cloud, icebergs, etc., and none-of-the-above (obstacles). There is no need to detect maritime vessels such as boats or ships.
+
+5. We need to handle occlusions due to waves or other objects.
+
+6. There should be no hard-coded model parameters in the code. Everything must be parameterized in an XML file. The choice of algorithm to use in a particular instance, parameters for that algorithm, any model parameters (e.g., class list and associate probabilities and models) or training networks must be parameterized. Based on the configuration file with parameters, models and rules, we should be able to apply the same library for different datasets. We should be able to train the models that you deliver using our own data. That is, a pretrained model is not enough.
+
+7. During initialization, the parameters must be read from the XML file. Make sure that the input parameters are validated during initialization and return an error if validation fails.
+
+8. In addition to algorithmic decision making, MarSemSeg  can use  context information (e.g., on land, over water) and postprocessing rules on top of the algorithmic output to improve the reliability and general applicability of your work. GIS information could be an input parameter or it can use a call back to request map information. That is, mere application of models or code from GitHub will not suffice. What we need is a usable practical solution for multimodal maritime semantic segmentation that will work on other real data, not a simple repackaging of some model or code from GitHub. 
+
+9. In any dataset, only 70% randomly selected frames can be used for training. The datasets used for training must be delivered with source code. The indices of frames in each dataset used for training must be saved in a file. 
+
+10. MarSemSeg should be platform-independent with support for Windows and Linux operating systems running on Intel x64 and ARM64 processors.
+
+11. MarSemSeg should optionally make use of one or more GPUs (CUDA) on a computer. ideally, it should work even without a GPU, but this requirement may be ignored initially.
+
+12. There is no need for a GUI at this point. A simple main program that makes use of MarSemSeg to generate output is needed for demonstration, validation and comparison against other tools (e.g., MATLAB).
+
+13. Open-source libraries can be used to simplify the development process. Any other open-source library, except for those with GPL or similarly restrictive licensing, is fine.
+
+14. As much as possible, use long meaningful names for variable names in the code. Variable names such as a1, x21, xy3, etc., must be avoided. That is, the code must be self-documenting. The code cannot crash. You must catch and throw errors appropriately. 
+
+15. Extensive line-by-line commenting is not needed, but there must be sufficient comments to explain the purpose of a function, variable or parameter.
+
+16. A short document (in Word or text format) describing the code, application and compilation process must be delivered along with source code, references, models, data used for training, etc.
+
+17. In Milestone 1, we will restrict to the maritime environment with one or more visible-spectrum videos (with partial overlap). In Milestone 2, we will extend the work to include one or more near-infrared and infrared/thermal cameras. In subsequent ones, we will handle urban and non-urban ground scenarios and air-to-ground/air-to-maritime scenarios.
+
+Datasets:
+Key datasets: MaSTr1325 MODD2, MODS, SMD, MID, VAIS, MarDCT, PETS2016, MARVEL 
+
+https://box.vicos.si/borja/viamaro/index.html
+https://www.vicos.si/resources/mastr1325/
+https://www.vicos.si/Downloads/MODD
+https://github.com/bborja/modd
+https://vision.fe.uni-lj.si/RESEARCH/modd/
+https://github.com/bborja/mods_evaluation
+https://sites.google.com/site/dilipprasad/home/singapore-maritime-dataset
+https://github.com/aluckyi/MID
+https://www.researchgate.net/deref/http%3A%2F%2Fvcipl-okstate.org%2Fpbvs%2Fbench%2FData%2F12%2FVAIS.zip
+http://www.diag.uniroma1.it//~labrococo/MAR/
+http://www.dis.uniroma1.it/~labrococo/MAR/
+http://www.ipatchproject.eu/results.aspx
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0205319 https://pspagnolo.jimdofree.com/download/
+https://pspagnolo.jimdofree.com/download/
+https://www.kaggle.com/datasets/tezdhar/marvel-maritime-vessels-classification-dataset
+https://zenodo.org/record/4736931
+https://www.kaggle.com/code/arpitjain007/ship-classification/data
+https://www.kaggle.com/competitions/statoil-iceberg-classifier-challenge/overview
+https://www.shipspotting.com/
+
+YouTube:
+https://www.youtube.com/watch?v=JpVKgrfkqs0 (2K, calm, lots of targets, fog)
+https://www.youtube.com/watch?v=U-MFYTeJZqc (2K, lots of targets, calm SS)
+https://www.youtube.com/watch?v=MgXEL2tpTqc (2K, boat, rough SS)
+https://www.youtube.com/watch?v=U-MFYTeJZqc (2K, lots of targets, land, birds, calm SS)
+https://www.youtube.com/watch?v=BknhFXC3i74&list=RDCMUCvWe3bMhEXz57UmuSBDLmFQ&index=3 (2K, warship, aircraft)
+
+https://www.youtube.com/watch?v=mVZoJyWRS9Q (720p, different targets, land, birds)
+https://www.youtube.com/watch?v=3tFdOqKV2Iw (720p, no targets)
+https://www.youtube.com/watch?v=cat30PaExyo (2K, rough SS, no targets, fog, rain, water drops)
+https://www.youtube.com/watch?v=nr6e3hRFidc (1080p, mid SS, no targets)
+https://www.youtube.com/watch?v=tXnTYvd3NfM (360p, fog, hazy, iceberg, bird)
+https://www.youtube.com/watch?v=sILweiPfBzA (1080p, icebergs, boats, hazy)
+https://www.youtube.com/watch?v=DpJwao_fxmM (2K, calm, different targets, birds)
+https://www.youtube.com/watch?v=-NDqy_G13t0 (1080p, pirates, EO+IR, missile)
+https://www.youtube.com/watch?v=d3A0is0pXUQ (360p, pirates)
+https://www.youtube.com/watch?v=AQdw0MK3qik (720p, boat, haze)
+https://www.youtube.com/watch?v=x09BP7hlz2Y&list=RDCMUCvWe3bMhEXz57UmuSBDLmFQ&index=2 (2K, rough SS, hurricane, no targets)
+https://www.youtube.com/watch?v=aBM7NgMhg90 (720p, rough SS, boats, no targets)
+https://www.youtube.com/watch?v=WKmwdgilJTs (720p, rough SS, boats, barges)
+https://www.youtube.com/watch?v=NJIZTL2ZyEw (1080p, rough SS, military boat, heli)
+https://www.youtube.com/watch?v=KsWuBMjxZM4 (1080p, heli, boats)
+https://www.youtube.com/watch?v=AMowaZ3I90o (480p, missile)
+https://www.youtube.com/watch?v=uXk8JAQ-370 (720p, missile)
+https://www.youtube.com/watch?v=DZCLKq1XVFg (1080p, rough SS, short range, big ships)
+https://www.youtube.com/watch?v=BxeI4dUhaHw (720p, human)
+https://www.youtube.com/watch?v=OoFCDyvXUrc (1080p, human, short range)
+https://www.youtube.com/watch?v=ZzGB-_uj6RI (2K, human)
+https://www.youtube.com/watch?v=jYydED6cXtI (480p, different lights, boats, buoys)
+https://www.youtube.com/watch?v=cMNH4nmOims (2K, rough SS, lightning, rain)
+https://www.youtube.com/watch?v=JNSmjNsCe8M (720p, rough SS)
+https://www.youtube.com/watch?v=dA-9tqfz0ms (4k, dense fog, targets)
+
+MODELS TO IMPLEMENT IN MILESTONE 1:
+U-Net, R2U-Net, Attention U-Net, Attention R2U-Net: https://github.com/LeeJunHyun/Image_Segmentation#u-net
+Deeplabv3: https://github.com/fregu856/deeplabv3
+Deeplabv2: (TensorFlow) https://github.com/google-research/deeplab2
+SegNet, PSPNet: https://github.com/ZijunDeng/pytorch-semantic-segmentation
+FastFCN: https://github.com/wuhuikai/FastFCN
+PSPNet
+BiSeNet
+ParseNet
+And other latest architectures (your choice)
