@@ -23,13 +23,17 @@ def main(cfg):
 
     palette_array = np.array(PALETTE, dtype=np.uint8)
 
+    logger.info("Creating annotations directory")
+    processed_ann_folder = osp.join(args.dataset_dir, args.output.ann_dir)
+    os.makedirs(processed_ann_folder, exist_ok=True)
+
     logging.info("Processing annotations...")
     for filename in tqdm(os.listdir(ann_folder), desc="Processing annotations"):
         mask = cv2.imread(osp.join(ann_folder, filename)).astype(np.uint8)
         mask = Image.fromarray(mask[..., 0]).convert("P")
         mask.putpalette(palette_array)
-        mask.save(osp.join(args.output.ann_dir, filename))
-
+        mask.save(osp.join(processed_ann_folder, filename))
+    
     means = [0.0, 0.0, 0.0]
     stds = [0.0, 0.0, 0.0]
     train_filenames = []
