@@ -29,10 +29,12 @@ def main(cfg):
 
     logging.info("Processing annotations...")
     for filename in tqdm(os.listdir(ann_folder), desc="Processing annotations"):
+        img_filename, extension = filename.split(".")
+        img_filename = img_filename[:-1]
         mask = cv2.imread(osp.join(ann_folder, filename)).astype(np.uint8)
         mask = Image.fromarray(mask[..., 0]).convert("P")
         mask.putpalette(palette_array)
-        mask.save(osp.join(processed_ann_folder, filename))
+        mask.save(osp.join(processed_ann_folder, f"{img_filename}.{extension}"))
     
     means = [0.0, 0.0, 0.0]
     stds = [0.0, 0.0, 0.0]

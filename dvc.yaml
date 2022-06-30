@@ -1,0 +1,6 @@
+stages:
+  define_splits:
+    cmd: python stages/1_define_splits.py
+  
+  process_data:
+    cmd: python stages/2_process_data.py
