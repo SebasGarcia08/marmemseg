@@ -1,6 +1,25 @@
 stages:
+
+  data_extract:
+    cmd: bash scripts/data_extraction/main.bash
+    deps: 
+      - ${data_extract.input_dir}
+    outs:
+      - ${data_extract.output_dir}/images
+      - ${data_extract.output_dir}/masks
+      - ${data_extract.output_dir}/imus
+
   define_splits:
     cmd: python stages/1_define_splits.py
+    deps: 
+      - ${data_extract.output_dir}/images
+    outs: 
+      - ${data_extract.output_dir}/splits
   
   process_data:
     cmd: python stages/2_process_data.py
+    deps:
+      - ${data_extract.output_dir}/splits
+    outs:
+      - ${data_extract.output_dir}/annotations
+      - ${data_extract.output_dir}/img_norm_cfg.json

@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  data_extract:
+    cmd: bash scripts/data_extraction/main.bash
+    deps:
+    - path: data/raw/mastr1325/
+      md5: abf7856372e293f473824d729c0fdf8c.dir
+      size: 24757821
+      nfiles: 4
+    outs:
+    - path: data/processed/mastr1325//images
+      md5: 3b80a36e7f884e5abdee856efecdd10e.dir
+      size: 22830290
+      nfiles: 1325
+    - path: data/processed/mastr1325//imus
+      md5: 5e0b328632a7a08bc2c835d8288d3ecb.dir
+      size: 919579
+      nfiles: 1325
+    - path: data/processed/mastr1325//masks
+      md5: 80133e60611f66a1f8505a0c887969e1.dir
+      size: 2709896
+      nfiles: 1325
+  define_splits:
+    cmd: python stages/1_define_splits.py
+    deps:
+    - path: data/processed/mastr1325//images
+      md5: 3b80a36e7f884e5abdee856efecdd10e.dir
+      size: 22830290
+      nfiles: 1325
+    outs:
+    - path: data/processed/mastr1325//splits
+      md5: 169a949284672a7901d0ab5cebeda40d.dir
+      size: 7880
+      nfiles: 2
+  process_data:
+    cmd: python stages/2_process_data.py
+    deps:
+    - path: data/processed/mastr1325//splits
+      md5: 169a949284672a7901d0ab5cebeda40d.dir
+      size: 7880
+      nfiles: 2
+    outs:
+    - path: data/processed/mastr1325//annotations
+      md5: 398cfeb3eb74833c95c252c7914a70dd.dir
+      size: 1143859
+      nfiles: 1325
+    - path: data/processed/mastr1325//img_norm_cfg.json
+      md5: 9be8e815025c6df741ab0e4c453984d2
+      size: 151

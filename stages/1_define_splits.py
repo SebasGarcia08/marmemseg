@@ -8,7 +8,7 @@ import hydra
 import mmcv
 
 
-@hydra.main(config_path="../", config_name='config')
+@hydra.main(config_path="../", config_name='params')
 def main(cfg):
     args = cfg.define_splits
     random.seed(cfg.base.random.seed)

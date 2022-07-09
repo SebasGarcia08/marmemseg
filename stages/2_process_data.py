@@ -14,12 +14,11 @@ from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
-@hydra.main(config_path="../", config_name='config')
+@hydra.main(config_path="../", config_name='params')
 def main(cfg):
     args = cfg.process_data
     ann_folder = osp.join(args.dataset_dir, "masks")
     img_folder = osp.join(args.dataset_dir, "images")
-    os.makedirs(args.output.ann_dir, exist_ok=True)
 
     palette_array = np.array(PALETTE, dtype=np.uint8)
 
@@ -46,7 +45,7 @@ def main(cfg):
 
     logger.info(f"Calculating means and stds on {len(train_filenames)} training images...")
     for filename in tqdm(train_filenames, desc="Calculating means and stds"):
-        img = cv2.imread(osp.join(img_folder, filename))
+        img = cv2.imread(osp.join(img_folder, filename), cv2.COLOR_BGR2RGB)
 
         for ch in range(img.shape[-1]):
             means[ch] += np.mean(img[..., ch])
